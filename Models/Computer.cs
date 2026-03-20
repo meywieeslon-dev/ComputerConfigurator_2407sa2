@@ -1,4 +1,8 @@
-﻿namespace ComputerConfigurator.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ComputerConfigurator.Models
 {
     public class Computer
     {
@@ -10,6 +14,15 @@
         public Computer()
         {
             AdditionalComponents = new List<string>();
+        }
+
+ 
+        public Computer(Computer other)
+        {
+            CPU = other.CPU;
+            RAM = other.RAM;
+            GPU = other.GPU;
+            AdditionalComponents = new List<string>(other.AdditionalComponents);
         }
 
         public void Display()
@@ -27,6 +40,21 @@
                     Console.WriteLine($"  - {component}");
 
             Console.WriteLine("===============================\n");
+        }
+
+       
+        public Computer ShallowCopy()
+        {
+            Computer clone = (Computer)this.MemberwiseClone();
+          
+            return clone;
+        }
+        public Computer DeepCopy()
+        {
+            Computer clone = (Computer)this.MemberwiseClone();
+          
+            clone.AdditionalComponents = new List<string>(this.AdditionalComponents);
+            return clone;
         }
     }
 }
